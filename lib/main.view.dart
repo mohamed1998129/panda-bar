@@ -8,6 +8,7 @@ class PandaBar extends StatefulWidget {
   final Color? backgroundColor;
   final List<PandaBarButtonData> buttonData;
   final Widget? fabIcon;
+  final bool hasFabIcon;
 
   final Color? buttonColor;
   final Color? buttonSelectedColor;
@@ -22,6 +23,7 @@ class PandaBar extends StatefulWidget {
     required this.onChange,
     this.backgroundColor,
     this.fabIcon,
+    this.hasFabIcon = true,
     this.fabColors,
     this.onFabButtonPressed,
     this.buttonColor,
@@ -41,13 +43,12 @@ class _PandaBarState extends State<PandaBar> {
   @override
   void initState() {
     selectedId =
-        widget.buttonData.length > 0 ? widget.buttonData.first.id : null;
+    widget.buttonData.length > 0 ? widget.buttonData.first.id : null;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     final clipper = _PandaBarClipper(fabSize: fabSize);
 
     return Stack(
@@ -101,7 +102,8 @@ class _PandaBarState extends State<PandaBar> {
                         children: leadingChildren,
                       ),
                     ),
-                    Container(width: fabSize),
+                    if(widget.hasFabIcon)
+                      Container(width: fabSize),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -114,12 +116,13 @@ class _PandaBarState extends State<PandaBar> {
             ),
           ),
         ),
-        PandaBarFabButton(
-          size: fabSize,
-          icon: widget.fabIcon,
-          onTap: widget.onFabButtonPressed,
-          colors: widget.fabColors,
-        ),
+        if(widget.hasFabIcon)
+          PandaBarFabButton(
+            size: fabSize,
+            icon: widget.fabIcon,
+            onTap: widget.onFabButtonPressed,
+            colors: widget.fabColors,
+          ),
       ],
     );
   }
