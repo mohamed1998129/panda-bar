@@ -61,46 +61,75 @@ class _PandaBarState extends State<PandaBar> {
             List<Widget> leadingChildren = [];
             List<Widget> trailingChildren = [];
 
-            widget.buttonData.asMap().forEach((i, data) {
-              Widget btn = PandaBarButton(
-                icon: data.icon,
-                title: data.title,
-                isSelected: data.id != null && selectedId == data.id,
-                unselectedColor: widget.buttonColor,
-                selectedColor: widget.buttonSelectedColor,
-                onTap: () {
-                  setState(() {
-                    selectedId = data.id;
-                  });
-                  this.widget.onChange(data.id);
-                },
-              );
+            if(widget.hasFabIcon){
+              widget.buttonData.asMap().forEach((i, data) {
+                Widget btn = PandaBarButton(
+                  icon: data.icon,
+                  title: data.title,
+                  isSelected: data.id != null && selectedId == data.id,
+                  unselectedColor: widget.buttonColor,
+                  selectedColor: widget.buttonSelectedColor,
+                  onTap: () {
+                    setState(() {
+                      selectedId = data.id;
+                    });
+                    this.widget.onChange(data.id);
+                  },
+                );
 
-              if (i < 2) {
+                if (i < 2) {
+                  leadingChildren.add(btn);
+                } else {
+                  trailingChildren.add(btn);
+                }
+              });
+            }else{
+              widget.buttonData.asMap().forEach((i, data) {
+                Widget btn = PandaBarButton(
+                  icon: data.icon,
+                  title: data.title,
+                  isSelected: data.id != null && selectedId == data.id,
+                  unselectedColor: widget.buttonColor,
+                  selectedColor: widget.buttonSelectedColor,
+                  onTap: () {
+                    setState(() {
+                      selectedId = data.id;
+                    });
+                    this.widget.onChange(data.id);
+                  },
+                );
                 leadingChildren.add(btn);
-              } else {
-                trailingChildren.add(btn);
-              }
-            });
+              });
+            }
 
-            return Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: leadingChildren,
+
+            if(widget.hasFabIcon){
+              return  Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: leadingChildren,
+                    ),
                   ),
-                ),
-                if(widget.hasFabIcon)
-                  Container(width: fabSize),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: trailingChildren,
+                  if(widget.hasFabIcon)
+                    Container(width: fabSize),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: trailingChildren,
+                    ),
                   ),
+                ],
+              );
+            }else{
+              return Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: leadingChildren,
                 ),
-              ],
-            );
+              );
+            }
           }),
         ),
         if(widget.hasFabIcon)
