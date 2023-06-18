@@ -98,7 +98,7 @@ class _PandaBarState extends State<PandaBar> {
                     this.widget.onChange(data.id);
                   },
                 );
-                leadingChildren.add(btn);
+                  leadingChildren.add(btn);
               });
             }
 
@@ -124,11 +124,11 @@ class _PandaBarState extends State<PandaBar> {
               );
             }else{
               return Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: leadingChildren,
-                ),
-              );
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: leadingChildren,
+                    ),
+                  );
             }
           }),
         ),
