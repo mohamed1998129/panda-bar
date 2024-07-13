@@ -16,12 +16,14 @@ class PandaBar extends StatefulWidget {
 
   final Function(dynamic selectedPage) onChange;
   final VoidCallback? onFabButtonPressed;
+  final int? id;
 
   const PandaBar({
     Key? key,
     required this.buttonData,
     required this.onChange,
     this.backgroundColor,
+    this.id,
     this.fabIcon,
     this.hasFabIcon = true,
     this.fabColors,
@@ -42,8 +44,11 @@ class _PandaBarState extends State<PandaBar> {
 
   @override
   void initState() {
-    selectedId =
-    widget.buttonData.length > 0 ? widget.buttonData.first.id : null;
+    if(widget.id !=null){
+      selectedId = widget.buttonData.length > 0 ? widget.id  : null;
+    }else{
+      selectedId = widget.buttonData.length > 0 ? widget.buttonData.first.id : null;
+    }
     super.initState();
   }
 
